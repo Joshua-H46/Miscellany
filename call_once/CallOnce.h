@@ -24,6 +24,7 @@ namespace call_once {
         std::atomic_uint _control;
     };
 
+    // very simple and naive implementation with spin lock used
     template<typename Func, typename ...Args>
     void callOnce(OnceFlag& onceFlag_, Func&& f_, Args&&... args_)
     {
