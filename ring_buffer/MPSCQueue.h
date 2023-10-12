@@ -27,14 +27,14 @@ namespace ring_buffer
                 if (h == newTail) {
                     return false;
                 }
-            } while (!_tail.compare_exchange_strong(t, newTail, std::memory_order_acq_rel, std::memory_order_acquire));
+            } while (!_tail.compare_exchange_weak(t, newTail, std::memory_order_acq_rel, std::memory_order_acquire));
             T& slot = _data[t];
             new (&slot) T(std::forward<Args>(args_)...);
             auto s = t;
             do
             {
                 s = t;
-            } while (!_stub.compare_exchange_strong(s, newTail, std::memory_order_release, std::memory_order_relaxed));
+            } while (!_stub.compare_exchange_weak(s, newTail, std::memory_order_release, std::memory_order_relaxed));
             return true;
         }
 
