@@ -29,7 +29,6 @@ namespace raii_guard
                 invoke();
             }
         }
-
         void cancel()
         {
             _enable = false;
