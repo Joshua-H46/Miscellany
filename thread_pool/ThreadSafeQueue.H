@@ -61,6 +61,7 @@ public:
     void stop()
     {
         _stop.store(1, std::memory_order_release);
+        data_cond.notify_all();
     }
 
 private:
